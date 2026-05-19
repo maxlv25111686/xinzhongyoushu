@@ -23,7 +23,9 @@ const PDF_PARSE_SKILL_SPEC_PATH = path.join(
   "references",
   "extraction-spec.md"
 );
-const OPENCLAW_GATEWAY_URL = "ws://127.0.0.1:18789";
+const OPENCLAW_GATEWAY_URL = process.env.OPENCLAW_GATEWAY_URL || "ws://127.0.0.1:18789";
+const OPENCLAW_GATEWAY_TOKEN = process.env.OPENCLAW_GATEWAY_TOKEN || "";
+const OPENCLAW_GATEWAY_PASSWORD = process.env.OPENCLAW_GATEWAY_PASSWORD || "";
 const OPENCLAW_STATE_DIR = process.env.OPENCLAW_STATE_DIR || path.join(os.homedir(), ".openclaw");
 const OPENCLAW_CONFIG_PATH = process.env.OPENCLAW_CONFIG_PATH || path.join(OPENCLAW_STATE_DIR, "openclaw.json");
 const OPENCLAW_PACKAGE_ROOT = path.join(
@@ -488,10 +490,10 @@ async function loadGatewayWebSocketApi() {
 
 async function loadOpenClawGatewayRuntimeConfig() {
   const fallback = {
-    url: OPENCLAW_GATEWAY_URL,
-    token: "",
-    password: "",
-    source: "local-loopback",
+    url: normalizeGatewayWebSocketUrl(OPENCLAW_GATEWAY_URL),
+    token: normalizeOptionalGatewayString(OPENCLAW_GATEWAY_TOKEN),
+    password: normalizeOptionalGatewayString(OPENCLAW_GATEWAY_PASSWORD),
+    source: process.env.OPENCLAW_GATEWAY_URL ? "env" : "local-loopback",
   };
 
   try {
@@ -500,21 +502,20 @@ async function loadOpenClawGatewayRuntimeConfig() {
     const isRemoteMode = config?.gateway?.mode === "remote";
     const localAuth = config?.gateway?.auth || {};
     const remoteAuth = config?.gateway?.remote || {};
-    const configuredUrl = isRemoteMode
-      ? normalizeOptionalGatewayString(remoteAuth.url)
-      : OPENCLAW_GATEWAY_URL;
-    const token = isRemoteMode
-      ? normalizeOptionalGatewayString(remoteAuth.token)
-      : normalizeOptionalGatewayString(localAuth.token);
-    const password = isRemoteMode
-      ? normalizeOptionalGatewayString(remoteAuth.password)
-      : normalizeOptionalGatewayString(localAuth.password);
+    const configuredUrl = process.env.OPENCLAW_GATEWAY_URL
+      || (isRemoteMode ? normalizeOptionalGatewayString(remoteAuth.url) : OPENCLAW_GATEWAY_URL);
+    const token = normalizeOptionalGatewayString(
+      process.env.OPENCLAW_GATEWAY_TOKEN || (isRemoteMode ? remoteAuth.token : localAuth.token)
+    );
+    const password = normalizeOptionalGatewayString(
+      process.env.OPENCLAW_GATEWAY_PASSWORD || (isRemoteMode ? remoteAuth.password : localAuth.password)
+    );
 
     return {
       url: normalizeGatewayWebSocketUrl(configuredUrl || OPENCLAW_GATEWAY_URL),
       token,
       password,
-      source: isRemoteMode ? "config-remote" : "local-loopback",
+      source: process.env.OPENCLAW_GATEWAY_URL ? "env" : (isRemoteMode ? "config-remote" : "local-loopback"),
     };
   } catch {
     return fallback;
