@@ -2313,7 +2313,9 @@ async function buildOllamaTraceDisplay(tracePayload) {
     const assistantText = await generateWithFastOllama(
       [
         "/no_think",
-        "你是芯中有数的本地 Ollama 溯源输出器。",
+        CLOUD_AI_ENABLED
+          ? "你是芯中有数的云端模型溯源输出器。"
+          : "你是芯中有数的本地 Ollama 溯源输出器。",
         "请只回复指定的一行文本，原样输出，不要解释、不要补充、不要 Markdown。",
         "",
         fallback,
@@ -4155,7 +4157,7 @@ async function handleTraceLog(request, response) {
 
     sendJson(response, 200, {
       ok: true,
-      transport: "ollama-local",
+      transport: CLOUD_AI_ENABLED ? "cloudbase-ai" : "ollama-local",
       sessionId: sessionRef.sessionId,
       sessionKey: null,
       gatewaySessionId: null,

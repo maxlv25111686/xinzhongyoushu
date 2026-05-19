@@ -4461,8 +4461,18 @@ async function checkService() {
     if (payload.defaultAgentId && !refs.agentId.value.trim()) {
       refs.agentId.value = payload.defaultAgentId;
     }
-    const readyLabel = payload.transport === "ollama-local" ? "Ollama 已就绪" : "已就绪";
-    const readyTip = payload.transport === "ollama-local" ? `本地模型 ${payload.model || "Ollama"}` : "可以直接提问";
+    const readyLabel =
+      payload.transport === "cloudbase-ai"
+        ? "云端模型已就绪"
+        : payload.transport === "ollama-local"
+          ? "Ollama 已就绪"
+          : "已就绪";
+    const readyTip =
+      payload.transport === "cloudbase-ai"
+        ? `CloudBase AI ${payload.model || "云端模型"}`
+        : payload.transport === "ollama-local"
+          ? `本地模型 ${payload.model || "Ollama"}`
+          : "可以直接提问";
     setChatStatus(
       payload.ok ? "connected" : "error",
       payload.ok ? readyLabel : "不可用",
