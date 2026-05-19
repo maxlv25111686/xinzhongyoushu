@@ -1,0 +1,37 @@
+node_modules/
+npm-debug.log*
+.env
+.env.*
+!.env.example
+
+# Local runtime and debug output
+tmp/
+.tmp-logs/
+.playwright-cli/
+output/
+ppt素材/
+temp-debug-preview.pdf
+tmp_openclaw_chat.json
+deploy_clean/
+*.zip
+
+# Generated dashboard bundle kept out of deploy uploads
+data/dist/
+data/dashboard.zip
+
+# Python and OS cache files
+__pycache__/
+*.pyc
+.DS_Store
+.astrbot
+
+# Local transcription tooling and generated drafts, not part of this web app
+.venv-transcribe/
+transcribe_models/
+transcribe_test/
+batch_transcribe_videos.sh
+
+# Local writing drafts
+*.docx
+芯中有数*.md
+线上部署失败问题分析与修改建议.md

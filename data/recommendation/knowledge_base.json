@@ -1,0 +1,1893 @@
+{
+  "categories": [
+    {
+      "id": "sensor.temperature.digital",
+      "code": "sensor.temperature.digital",
+      "name": "数字温度传感器",
+      "description": "I2C/SMBus 数字温度传感器",
+      "parentId": ""
+    },
+    {
+      "id": "sensor.hall",
+      "code": "sensor.hall",
+      "name": "霍尔传感器",
+      "description": "低功耗霍尔开关与线性霍尔器件",
+      "parentId": ""
+    },
+    {
+      "id": "power.ldo",
+      "code": "power.ldo",
+      "name": "LDO",
+      "description": "线性稳压器",
+      "parentId": ""
+    },
+    {
+      "id": "power.dcdc.buck",
+      "code": "power.dcdc.buck",
+      "name": "Buck 降压",
+      "description": "同步或异步降压型 DC-DC",
+      "parentId": ""
+    },
+    {
+      "id": "analog.opamp",
+      "code": "analog.opamp",
+      "name": "运算放大器",
+      "description": "通用运放与低功耗运放",
+      "parentId": ""
+    },
+    {
+      "id": "interface.level_shifter",
+      "code": "interface.level_shifter",
+      "name": "电平转换",
+      "description": "逻辑电平转换器与总线转换器",
+      "parentId": ""
+    },
+    {
+      "id": "mcu.general",
+      "code": "mcu.general",
+      "name": "MCU",
+      "description": "通用微控制器",
+      "parentId": ""
+    }
+  ],
+  "paramDefinitions": [
+    {
+      "paramKey": "supply_voltage_min",
+      "labelCn": "供电电压下限",
+      "labelEn": "Supply Voltage Min",
+      "valueType": "number",
+      "unitFamily": "voltage",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "*"
+    },
+    {
+      "paramKey": "supply_voltage_max",
+      "labelCn": "供电电压上限",
+      "labelEn": "Supply Voltage Max",
+      "valueType": "number",
+      "unitFamily": "voltage",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "*"
+    },
+    {
+      "paramKey": "input_voltage_min",
+      "labelCn": "输入电压下限",
+      "labelEn": "Input Voltage Min",
+      "valueType": "number",
+      "unitFamily": "voltage",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "power.dcdc.buck,power.ldo"
+    },
+    {
+      "paramKey": "input_voltage_max",
+      "labelCn": "输入电压上限",
+      "labelEn": "Input Voltage Max",
+      "valueType": "number",
+      "unitFamily": "voltage",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "power.dcdc.buck,power.ldo"
+    },
+    {
+      "paramKey": "output_voltage_typ",
+      "labelCn": "输出电压",
+      "labelEn": "Output Voltage",
+      "valueType": "number",
+      "unitFamily": "voltage",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "power.ldo,power.dcdc.buck"
+    },
+    {
+      "paramKey": "output_current_max",
+      "labelCn": "最大输出电流",
+      "labelEn": "Max Output Current",
+      "valueType": "number",
+      "unitFamily": "current",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "power.ldo,power.dcdc.buck"
+    },
+    {
+      "paramKey": "quiescent_current_typ",
+      "labelCn": "静态电流典型值",
+      "labelEn": "Quiescent Current Typ",
+      "valueType": "number",
+      "unitFamily": "current",
+      "searchable": true,
+      "comparable": true,
+      "isCore": false,
+      "categoryScope": "*"
+    },
+    {
+      "paramKey": "operating_temp_min",
+      "labelCn": "工作温度下限",
+      "labelEn": "Operating Temp Min",
+      "valueType": "number",
+      "unitFamily": "temperature",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "*"
+    },
+    {
+      "paramKey": "operating_temp_max",
+      "labelCn": "工作温度上限",
+      "labelEn": "Operating Temp Max",
+      "valueType": "number",
+      "unitFamily": "temperature",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "*"
+    },
+    {
+      "paramKey": "accuracy_max",
+      "labelCn": "最大精度误差",
+      "labelEn": "Accuracy Max",
+      "valueType": "number",
+      "unitFamily": "accuracy",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "sensor.temperature.digital,sensor.hall"
+    },
+    {
+      "paramKey": "resolution_bits",
+      "labelCn": "分辨率",
+      "labelEn": "Resolution",
+      "valueType": "number",
+      "unitFamily": "resolution",
+      "searchable": true,
+      "comparable": true,
+      "isCore": false,
+      "categoryScope": "sensor.temperature.digital,mcu.general"
+    },
+    {
+      "paramKey": "switching_frequency_typ",
+      "labelCn": "开关频率",
+      "labelEn": "Switching Frequency",
+      "valueType": "number",
+      "unitFamily": "frequency",
+      "searchable": true,
+      "comparable": true,
+      "isCore": false,
+      "categoryScope": "power.dcdc.buck"
+    },
+    {
+      "paramKey": "interface_type",
+      "labelCn": "接口类型",
+      "labelEn": "Interface Type",
+      "valueType": "text",
+      "unitFamily": "interface",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "sensor.temperature.digital,interface.level_shifter,mcu.general"
+    },
+    {
+      "paramKey": "package",
+      "labelCn": "封装",
+      "labelEn": "Package",
+      "valueType": "text",
+      "unitFamily": "package",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "*"
+    },
+    {
+      "paramKey": "pin_count",
+      "labelCn": "引脚数",
+      "labelEn": "Pin Count",
+      "valueType": "number",
+      "unitFamily": "count",
+      "searchable": true,
+      "comparable": true,
+      "isCore": false,
+      "categoryScope": "*"
+    },
+    {
+      "paramKey": "channel_count",
+      "labelCn": "通道数",
+      "labelEn": "Channel Count",
+      "valueType": "number",
+      "unitFamily": "count",
+      "searchable": true,
+      "comparable": true,
+      "isCore": false,
+      "categoryScope": "analog.opamp,interface.level_shifter"
+    },
+    {
+      "paramKey": "logic_voltage_min",
+      "labelCn": "逻辑电压下限",
+      "labelEn": "Logic Voltage Min",
+      "valueType": "number",
+      "unitFamily": "voltage",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "interface.level_shifter"
+    },
+    {
+      "paramKey": "logic_voltage_max",
+      "labelCn": "逻辑电压上限",
+      "labelEn": "Logic Voltage Max",
+      "valueType": "number",
+      "unitFamily": "voltage",
+      "searchable": true,
+      "comparable": true,
+      "isCore": true,
+      "categoryScope": "interface.level_shifter"
+    },
+    {
+      "paramKey": "bandwidth_typ",
+      "labelCn": "带宽",
+      "labelEn": "Bandwidth",
+      "valueType": "number",
+      "unitFamily": "frequency",
+      "searchable": true,
+      "comparable": true,
+      "isCore": false,
+      "categoryScope": "analog.opamp"
+    },
+    {
+      "paramKey": "slew_rate_typ",
+      "labelCn": "压摆率",
+      "labelEn": "Slew Rate",
+      "valueType": "number",
+      "unitFamily": "slew",
+      "searchable": true,
+      "comparable": true,
+      "isCore": false,
+      "categoryScope": "analog.opamp"
+    },
+    {
+      "paramKey": "memory_flash_kb",
+      "labelCn": "Flash 容量",
+      "labelEn": "Flash KB",
+      "valueType": "number",
+      "unitFamily": "memory",
+      "searchable": true,
+      "comparable": true,
+      "isCore": false,
+      "categoryScope": "mcu.general"
+    },
+    {
+      "paramKey": "memory_ram_kb",
+      "labelCn": "RAM 容量",
+      "labelEn": "RAM KB",
+      "valueType": "number",
+      "unitFamily": "memory",
+      "searchable": true,
+      "comparable": true,
+      "isCore": false,
+      "categoryScope": "mcu.general"
+    }
+  ],
+  "categoryTemplates": [
+    {
+      "categoryId": "sensor.temperature.digital",
+      "paramKey": "interface_type",
+      "weight": 20,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "interface_match"
+    },
+    {
+      "categoryId": "sensor.temperature.digital",
+      "paramKey": "supply_voltage_min",
+      "weight": 14,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "sensor.temperature.digital",
+      "paramKey": "supply_voltage_max",
+      "weight": 14,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "sensor.temperature.digital",
+      "paramKey": "operating_temp_min",
+      "weight": 14,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "sensor.temperature.digital",
+      "paramKey": "operating_temp_max",
+      "weight": 14,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "sensor.temperature.digital",
+      "paramKey": "accuracy_max",
+      "weight": 16,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "lower_better"
+    },
+    {
+      "categoryId": "sensor.temperature.digital",
+      "paramKey": "package",
+      "weight": 8,
+      "required": true,
+      "hardFilter": false,
+      "comparisonMode": "package_match"
+    },
+    {
+      "categoryId": "sensor.hall",
+      "paramKey": "supply_voltage_min",
+      "weight": 12,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "sensor.hall",
+      "paramKey": "supply_voltage_max",
+      "weight": 12,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "sensor.hall",
+      "paramKey": "operating_temp_min",
+      "weight": 14,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "sensor.hall",
+      "paramKey": "operating_temp_max",
+      "weight": 14,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "sensor.hall",
+      "paramKey": "quiescent_current_typ",
+      "weight": 16,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "lower_better"
+    },
+    {
+      "categoryId": "sensor.hall",
+      "paramKey": "package",
+      "weight": 10,
+      "required": true,
+      "hardFilter": false,
+      "comparisonMode": "package_match"
+    },
+    {
+      "categoryId": "power.ldo",
+      "paramKey": "input_voltage_min",
+      "weight": 12,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "power.ldo",
+      "paramKey": "input_voltage_max",
+      "weight": 12,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "power.ldo",
+      "paramKey": "output_voltage_typ",
+      "weight": 20,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "voltage_close"
+    },
+    {
+      "categoryId": "power.ldo",
+      "paramKey": "output_current_max",
+      "weight": 18,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "higher_better"
+    },
+    {
+      "categoryId": "power.ldo",
+      "paramKey": "quiescent_current_typ",
+      "weight": 10,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "lower_better"
+    },
+    {
+      "categoryId": "power.ldo",
+      "paramKey": "output_noise_typ",
+      "weight": 10,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "lower_better"
+    },
+    {
+      "categoryId": "power.ldo",
+      "paramKey": "psrr_typ",
+      "weight": 10,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "higher_better"
+    },
+    {
+      "categoryId": "power.ldo",
+      "paramKey": "operating_temp_min",
+      "weight": 6,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "power.ldo",
+      "paramKey": "operating_temp_max",
+      "weight": 6,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "power.ldo",
+      "paramKey": "package",
+      "weight": 10,
+      "required": true,
+      "hardFilter": false,
+      "comparisonMode": "package_match"
+    },
+    {
+      "categoryId": "power.dcdc.buck",
+      "paramKey": "input_voltage_min",
+      "weight": 12,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "power.dcdc.buck",
+      "paramKey": "input_voltage_max",
+      "weight": 12,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "power.dcdc.buck",
+      "paramKey": "output_voltage_typ",
+      "weight": 18,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "voltage_close"
+    },
+    {
+      "categoryId": "power.dcdc.buck",
+      "paramKey": "output_current_max",
+      "weight": 18,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "higher_better"
+    },
+    {
+      "categoryId": "power.dcdc.buck",
+      "paramKey": "switching_frequency_typ",
+      "weight": 12,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "higher_better"
+    },
+    {
+      "categoryId": "power.dcdc.buck",
+      "paramKey": "package",
+      "weight": 10,
+      "required": true,
+      "hardFilter": false,
+      "comparisonMode": "package_match"
+    },
+    {
+      "categoryId": "analog.opamp",
+      "paramKey": "supply_voltage_min",
+      "weight": 10,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "analog.opamp",
+      "paramKey": "supply_voltage_max",
+      "weight": 10,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "analog.opamp",
+      "paramKey": "bandwidth_typ",
+      "weight": 18,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "higher_better"
+    },
+    {
+      "categoryId": "analog.opamp",
+      "paramKey": "slew_rate_typ",
+      "weight": 14,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "higher_better"
+    },
+    {
+      "categoryId": "analog.opamp",
+      "paramKey": "channel_count",
+      "weight": 14,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "equals"
+    },
+    {
+      "categoryId": "analog.opamp",
+      "paramKey": "package",
+      "weight": 10,
+      "required": true,
+      "hardFilter": false,
+      "comparisonMode": "package_match"
+    },
+    {
+      "categoryId": "interface.level_shifter",
+      "paramKey": "logic_voltage_min",
+      "weight": 14,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "interface.level_shifter",
+      "paramKey": "logic_voltage_max",
+      "weight": 14,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "interface.level_shifter",
+      "paramKey": "interface_type",
+      "weight": 18,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "interface_match"
+    },
+    {
+      "categoryId": "interface.level_shifter",
+      "paramKey": "channel_count",
+      "weight": 16,
+      "required": true,
+      "hardFilter": false,
+      "comparisonMode": "higher_better"
+    },
+    {
+      "categoryId": "interface.level_shifter",
+      "paramKey": "package",
+      "weight": 10,
+      "required": true,
+      "hardFilter": false,
+      "comparisonMode": "package_match"
+    },
+    {
+      "categoryId": "mcu.general",
+      "paramKey": "supply_voltage_min",
+      "weight": 10,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "mcu.general",
+      "paramKey": "supply_voltage_max",
+      "weight": 10,
+      "required": true,
+      "hardFilter": true,
+      "comparisonMode": "range_cover"
+    },
+    {
+      "categoryId": "mcu.general",
+      "paramKey": "memory_flash_kb",
+      "weight": 18,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "higher_better"
+    },
+    {
+      "categoryId": "mcu.general",
+      "paramKey": "memory_ram_kb",
+      "weight": 14,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "higher_better"
+    },
+    {
+      "categoryId": "mcu.general",
+      "paramKey": "interface_type",
+      "weight": 12,
+      "required": false,
+      "hardFilter": false,
+      "comparisonMode": "contains"
+    },
+    {
+      "categoryId": "mcu.general",
+      "paramKey": "package",
+      "weight": 10,
+      "required": true,
+      "hardFilter": false,
+      "comparisonMode": "package_match"
+    }
+  ],
+  "domesticBrands": [
+    {
+      "id": "brand-sgmicro",
+      "brandName": "圣邦微",
+      "manufacturerName": "圣邦微电子",
+      "aliases": [
+        "SGMICRO",
+        "SGM"
+      ],
+      "confidence": 0.98,
+      "notes": "演示国产品牌映射"
+    },
+    {
+      "id": "brand-novosense",
+      "brandName": "纳芯微",
+      "manufacturerName": "纳芯微电子",
+      "aliases": [
+        "NOVOSENSE",
+        "NS"
+      ],
+      "confidence": 0.98,
+      "notes": "演示国产品牌映射"
+    },
+    {
+      "id": "brand-3peak",
+      "brandName": "思瑞浦",
+      "manufacturerName": "思瑞浦微电子",
+      "aliases": [
+        "3PEAK",
+        "TP"
+      ],
+      "confidence": 0.98,
+      "notes": "演示国产品牌映射"
+    },
+    {
+      "id": "brand-joulwatt",
+      "brandName": "杰华特",
+      "manufacturerName": "杰华特微电子",
+      "aliases": [
+        "JOULWATT",
+        "JW"
+      ],
+      "confidence": 0.98,
+      "notes": "演示国产品牌映射"
+    },
+    {
+      "id": "brand-chipown",
+      "brandName": "芯朋微",
+      "manufacturerName": "芯朋微电子",
+      "aliases": [
+        "CHIPOWN"
+      ],
+      "confidence": 0.98,
+      "notes": "演示国产品牌映射"
+    },
+    {
+      "id": "brand-wch",
+      "brandName": "沁恒",
+      "manufacturerName": "沁恒微电子",
+      "aliases": [
+        "WCH",
+        "QINHENG"
+      ],
+      "confidence": 0.98,
+      "notes": "演示国产品牌映射"
+    },
+    {
+      "id": "brand-fudan",
+      "brandName": "复旦微",
+      "manufacturerName": "复旦微电子",
+      "aliases": [
+        "FUDAN"
+      ],
+      "confidence": 0.95,
+      "notes": "演示国产品牌映射"
+    }
+  ],
+  "packageCompatibility": [
+    {
+      "packageA": "SOT563-6",
+      "packageB": "SOT23-6",
+      "compatibilityLevel": "partial",
+      "note": "尺寸与焊盘通常需复核"
+    },
+    {
+      "packageA": "SOT23-5",
+      "packageB": "SOT23-6",
+      "compatibilityLevel": "partial",
+      "note": "引脚定义需复核"
+    },
+    {
+      "packageA": "TSSOP-8",
+      "packageB": "MSOP-8",
+      "compatibilityLevel": "partial",
+      "note": "封装不等同，布局需调整"
+    },
+    {
+      "packageA": "X2SON-5",
+      "packageB": "X2SON-5",
+      "compatibilityLevel": "exact",
+      "note": "封装完全一致"
+    },
+    {
+      "packageA": "DFN-6",
+      "packageB": "DFN-6",
+      "compatibilityLevel": "exact",
+      "note": "封装完全一致"
+    }
+  ],
+  "parts": [
+    {
+      "id": "temp-sgm-demo-01",
+      "mpn": "DEMO-SGM-TEMP-01",
+      "brand": "圣邦微",
+      "manufacturer": "圣邦微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "sensor.temperature.digital",
+      "subcategory": "digital-temperature-sensor",
+      "package": "X2SON-5",
+      "packageRaw": "X2SON-5",
+      "description": "演示型数字温度传感器，I2C/SMBus 兼容",
+      "stockQty": 12800,
+      "priceMin": 1.85,
+      "aliases": [
+        "温度传感器",
+        "SMBus 温度传感器"
+      ],
+      "params": [
+        {
+          "paramKey": "supply_voltage_min",
+          "valueNum": 1.4,
+          "valueNumMin": 1.4,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "1.4V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "supply_voltage_max",
+          "valueNum": 3.6,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 3.6,
+          "valueText": "3.6V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 125,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 125,
+          "valueText": "125°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "accuracy_max",
+          "valueNum": 1.0,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 1.0,
+          "valueText": "±1.0°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "resolution_bits",
+          "valueNum": 12,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "12-bit",
+          "unit": "bit"
+        },
+        {
+          "paramKey": "interface_type",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "I2C,SMBus",
+          "unit": ""
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "X2SON-5",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "5",
+          "unit": "pin"
+        }
+      ]
+    },
+    {
+      "id": "temp-ns-demo-02",
+      "mpn": "DEMO-NS-TEMP-02",
+      "brand": "纳芯微",
+      "manufacturer": "纳芯微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "sensor.temperature.digital",
+      "subcategory": "digital-temperature-sensor",
+      "package": "SOT563-6",
+      "packageRaw": "SOT563-6",
+      "description": "演示型低功耗数字温度传感器",
+      "stockQty": 9200,
+      "priceMin": 1.62,
+      "aliases": [
+        "I2C 温度监测",
+        "低功耗温度传感器"
+      ],
+      "params": [
+        {
+          "paramKey": "supply_voltage_min",
+          "valueNum": 1.7,
+          "valueNumMin": 1.7,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "1.7V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "supply_voltage_max",
+          "valueNum": 5.5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 5.5,
+          "valueText": "5.5V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 125,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 125,
+          "valueText": "125°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "accuracy_max",
+          "valueNum": 1.5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 1.5,
+          "valueText": "±1.5°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "resolution_bits",
+          "valueNum": 12,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "12-bit",
+          "unit": "bit"
+        },
+        {
+          "paramKey": "interface_type",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "I2C,SMBus",
+          "unit": ""
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "SOT563-6",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 6,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "6",
+          "unit": "pin"
+        }
+      ]
+    },
+    {
+      "id": "hall-sgm-demo-01",
+      "mpn": "DEMO-SGM-HALL-01",
+      "brand": "圣邦微",
+      "manufacturer": "圣邦微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "sensor.hall",
+      "subcategory": "hall-switch",
+      "package": "SOT23-3",
+      "packageRaw": "SOT23-3",
+      "description": "演示型低功耗霍尔开关",
+      "stockQty": 15000,
+      "priceMin": 0.68,
+      "aliases": [
+        "霍尔开关",
+        "磁传感器"
+      ],
+      "params": [
+        {
+          "paramKey": "supply_voltage_min",
+          "valueNum": 1.65,
+          "valueNumMin": 1.65,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "1.65V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "supply_voltage_max",
+          "valueNum": 5.5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 5.5,
+          "valueText": "5.5V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 125,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 125,
+          "valueText": "125°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "quiescent_current_typ",
+          "valueNum": 1.8,
+          "valueNumMin": null,
+          "valueNumTyp": 1.8,
+          "valueNumMax": null,
+          "valueText": "1.8µA",
+          "unit": "µA"
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "SOT23-3",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 3,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "3",
+          "unit": "pin"
+        }
+      ]
+    },
+    {
+      "id": "hall-ns-demo-02",
+      "mpn": "DEMO-NS-HALL-02",
+      "brand": "纳芯微",
+      "manufacturer": "纳芯微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "sensor.hall",
+      "subcategory": "hall-switch",
+      "package": "TO-92-3",
+      "packageRaw": "TO-92-3",
+      "description": "演示型通用霍尔开关传感器",
+      "stockQty": 8800,
+      "priceMin": 0.55,
+      "aliases": [
+        "霍尔",
+        "磁开关"
+      ],
+      "params": [
+        {
+          "paramKey": "supply_voltage_min",
+          "valueNum": 2.5,
+          "valueNumMin": 2.5,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "2.5V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "supply_voltage_max",
+          "valueNum": 5.5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 5.5,
+          "valueText": "5.5V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 150,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 150,
+          "valueText": "150°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "quiescent_current_typ",
+          "valueNum": 3.2,
+          "valueNumMin": null,
+          "valueNumTyp": 3.2,
+          "valueNumMax": null,
+          "valueText": "3.2µA",
+          "unit": "µA"
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "TO-92-3",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 3,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "3",
+          "unit": "pin"
+        }
+      ]
+    },
+    {
+      "id": "ldo-sgmicro-sgm2059-12-sot23",
+      "mpn": "SGM2059-1.2XN5G/TR",
+      "brand": "圣邦微",
+      "manufacturer": "圣邦微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "power.ldo",
+      "subcategory": "fixed-ldo",
+      "package": "SOT23-5",
+      "packageRaw": "SOT23-5",
+      "description": "300mA 低 VIN、低噪声、高 PSRR、低 IQ 线性稳压器",
+      "stockQty": 9800,
+      "priceMin": 0.94,
+      "aliases": [
+        "SGM2059",
+        "低噪声 LDO",
+        "RF LDO"
+      ],
+      "params": [
+        {
+          "paramKey": "input_voltage_min",
+          "valueNum": 1.1,
+          "valueNumMin": 1.1,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "1.1V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "input_voltage_max",
+          "valueNum": 5.5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 5.5,
+          "valueText": "5.5V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "output_voltage_typ",
+          "valueNum": 1.2,
+          "valueNumMin": null,
+          "valueNumTyp": 1.2,
+          "valueNumMax": null,
+          "valueText": "1.2V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "output_current_max",
+          "valueNum": 0.3,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 0.3,
+          "valueText": "300mA",
+          "unit": "A"
+        },
+        {
+          "paramKey": "quiescent_current_typ",
+          "valueNum": 13,
+          "valueNumMin": null,
+          "valueNumTyp": 13,
+          "valueNumMax": null,
+          "valueText": "13µA",
+          "unit": "µA"
+        },
+        {
+          "paramKey": "output_noise_typ",
+          "valueNum": 0.0000095,
+          "valueNumMin": null,
+          "valueNumTyp": 0.0000095,
+          "valueNumMax": null,
+          "valueText": "9.5µVRMS",
+          "unit": "V"
+        },
+        {
+          "paramKey": "psrr_typ",
+          "valueNum": 92,
+          "valueNumMin": null,
+          "valueNumTyp": 92,
+          "valueNumMax": null,
+          "valueText": "92dB",
+          "unit": "dB"
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 125,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 125,
+          "valueText": "125°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "SOT23-5",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "5",
+          "unit": "pin"
+        }
+      ]
+    },
+    {
+      "id": "ldo-3peak-tpl903212-sot23",
+      "mpn": "TPL903212-S5TR",
+      "brand": "思瑞浦",
+      "manufacturer": "思瑞浦微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "power.ldo",
+      "subcategory": "fixed-ldo",
+      "package": "SOT23-5",
+      "packageRaw": "SOT23-5",
+      "description": "300mA 高 PSRR、超低噪声线性稳压器",
+      "stockQty": 8600,
+      "priceMin": 1.58,
+      "aliases": [
+        "TPL9032",
+        "低噪声 LDO",
+        "高 PSRR LDO"
+      ],
+      "params": [
+        {
+          "paramKey": "input_voltage_min",
+          "valueNum": 1.75,
+          "valueNumMin": 1.75,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "1.75V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "input_voltage_max",
+          "valueNum": 5.5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 5.5,
+          "valueText": "5.5V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "output_voltage_typ",
+          "valueNum": 1.2,
+          "valueNumMin": null,
+          "valueNumTyp": 1.2,
+          "valueNumMax": null,
+          "valueText": "1.2V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "output_current_max",
+          "valueNum": 0.3,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 0.3,
+          "valueText": "300mA",
+          "unit": "A"
+        },
+        {
+          "paramKey": "quiescent_current_typ",
+          "valueNum": 120,
+          "valueNumMin": null,
+          "valueNumTyp": 120,
+          "valueNumMax": null,
+          "valueText": "120µA",
+          "unit": "µA"
+        },
+        {
+          "paramKey": "output_noise_typ",
+          "valueNum": 0.0000086,
+          "valueNumMin": null,
+          "valueNumTyp": 0.0000086,
+          "valueNumMax": null,
+          "valueText": "8.6µVRMS",
+          "unit": "V"
+        },
+        {
+          "paramKey": "psrr_typ",
+          "valueNum": 81.9,
+          "valueNumMin": null,
+          "valueNumTyp": 81.9,
+          "valueNumMax": null,
+          "valueText": "81.9dB",
+          "unit": "dB"
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 125,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 125,
+          "valueText": "125°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "SOT23-5",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "5",
+          "unit": "pin"
+        }
+      ]
+    },
+    {
+      "id": "buck-chipown-demo-01",
+      "mpn": "DEMO-CO-BUCK-01",
+      "brand": "芯朋微",
+      "manufacturer": "芯朋微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "power.dcdc.buck",
+      "subcategory": "buck-converter",
+      "package": "SOT23-6",
+      "packageRaw": "SOT23-6",
+      "description": "演示型 1A 降压转换器",
+      "stockQty": 10300,
+      "priceMin": 0.76,
+      "aliases": [
+        "Buck",
+        "降压 DC-DC"
+      ],
+      "params": [
+        {
+          "paramKey": "input_voltage_min",
+          "valueNum": 4.5,
+          "valueNumMin": 4.5,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "4.5V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "input_voltage_max",
+          "valueNum": 24,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 24,
+          "valueText": "24V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "output_voltage_typ",
+          "valueNum": 3.3,
+          "valueNumMin": null,
+          "valueNumTyp": 3.3,
+          "valueNumMax": null,
+          "valueText": "3.3V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "output_current_max",
+          "valueNum": 1.0,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 1.0,
+          "valueText": "1A",
+          "unit": "A"
+        },
+        {
+          "paramKey": "switching_frequency_typ",
+          "valueNum": 1200,
+          "valueNumMin": null,
+          "valueNumTyp": 1200,
+          "valueNumMax": null,
+          "valueText": "1.2MHz",
+          "unit": "kHz"
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 125,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 125,
+          "valueText": "125°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "SOT23-6",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 6,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "6",
+          "unit": "pin"
+        }
+      ]
+    },
+    {
+      "id": "buck-jw-demo-02",
+      "mpn": "DEMO-JW-BUCK-02",
+      "brand": "杰华特",
+      "manufacturer": "杰华特微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "power.dcdc.buck",
+      "subcategory": "buck-converter",
+      "package": "SOT23-6",
+      "packageRaw": "SOT23-6",
+      "description": "演示型 2A 同步降压转换器",
+      "stockQty": 8700,
+      "priceMin": 0.98,
+      "aliases": [
+        "同步 Buck",
+        "高电流降压"
+      ],
+      "params": [
+        {
+          "paramKey": "input_voltage_min",
+          "valueNum": 4.0,
+          "valueNumMin": 4.0,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "4.0V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "input_voltage_max",
+          "valueNum": 18,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 18,
+          "valueText": "18V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "output_voltage_typ",
+          "valueNum": 3.3,
+          "valueNumMin": null,
+          "valueNumTyp": 3.3,
+          "valueNumMax": null,
+          "valueText": "3.3V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "output_current_max",
+          "valueNum": 2.0,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 2.0,
+          "valueText": "2A",
+          "unit": "A"
+        },
+        {
+          "paramKey": "switching_frequency_typ",
+          "valueNum": 1000,
+          "valueNumMin": null,
+          "valueNumTyp": 1000,
+          "valueNumMax": null,
+          "valueText": "1MHz",
+          "unit": "kHz"
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 125,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 125,
+          "valueText": "125°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "SOT23-6",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 6,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "6",
+          "unit": "pin"
+        }
+      ]
+    },
+    {
+      "id": "opamp-3peak-demo-01",
+      "mpn": "DEMO-3PEAK-OPA-01",
+      "brand": "思瑞浦",
+      "manufacturer": "思瑞浦微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "analog.opamp",
+      "subcategory": "general-opamp",
+      "package": "MSOP-8",
+      "packageRaw": "MSOP-8",
+      "description": "演示型轨到轨运算放大器",
+      "stockQty": 7400,
+      "priceMin": 0.96,
+      "aliases": [
+        "运放",
+        "Rail-to-Rail 运放"
+      ],
+      "params": [
+        {
+          "paramKey": "supply_voltage_min",
+          "valueNum": 2.1,
+          "valueNumMin": 2.1,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "2.1V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "supply_voltage_max",
+          "valueNum": 5.5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 5.5,
+          "valueText": "5.5V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "bandwidth_typ",
+          "valueNum": 1000,
+          "valueNumMin": null,
+          "valueNumTyp": 1000,
+          "valueNumMax": null,
+          "valueText": "1MHz",
+          "unit": "kHz"
+        },
+        {
+          "paramKey": "slew_rate_typ",
+          "valueNum": 0.6,
+          "valueNumMin": null,
+          "valueNumTyp": 0.6,
+          "valueNumMax": null,
+          "valueText": "0.6V/µs",
+          "unit": "V/us"
+        },
+        {
+          "paramKey": "channel_count",
+          "valueNum": 2,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "2",
+          "unit": "channel"
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 125,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 125,
+          "valueText": "125°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "MSOP-8",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 8,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "8",
+          "unit": "pin"
+        }
+      ]
+    },
+    {
+      "id": "ls-ns-demo-01",
+      "mpn": "DEMO-NS-LS-01",
+      "brand": "纳芯微",
+      "manufacturer": "纳芯微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "interface.level_shifter",
+      "subcategory": "bidirectional-level-shifter",
+      "package": "TSSOP-8",
+      "packageRaw": "TSSOP-8",
+      "description": "演示型双向电平转换器",
+      "stockQty": 5400,
+      "priceMin": 0.82,
+      "aliases": [
+        "电平转换",
+        "I2C 电平转换"
+      ],
+      "params": [
+        {
+          "paramKey": "logic_voltage_min",
+          "valueNum": 1.2,
+          "valueNumMin": 1.2,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "1.2V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "logic_voltage_max",
+          "valueNum": 5.5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 5.5,
+          "valueText": "5.5V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "interface_type",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "GPIO,I2C,SMBus",
+          "unit": ""
+        },
+        {
+          "paramKey": "channel_count",
+          "valueNum": 2,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "2",
+          "unit": "channel"
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 125,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 125,
+          "valueText": "125°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "TSSOP-8",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 8,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "8",
+          "unit": "pin"
+        }
+      ]
+    },
+    {
+      "id": "mcu-wch-demo-01",
+      "mpn": "DEMO-WCH-MCU-01",
+      "brand": "沁恒",
+      "manufacturer": "沁恒微电子",
+      "manufacturerCountry": "CN",
+      "isDomestic": true,
+      "categoryId": "mcu.general",
+      "subcategory": "32bit-mcu",
+      "package": "QFN-32",
+      "packageRaw": "QFN-32",
+      "description": "演示型 32 位 MCU",
+      "stockQty": 5200,
+      "priceMin": 2.95,
+      "aliases": [
+        "MCU",
+        "微控制器"
+      ],
+      "params": [
+        {
+          "paramKey": "supply_voltage_min",
+          "valueNum": 2.0,
+          "valueNumMin": 2.0,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "2.0V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "supply_voltage_max",
+          "valueNum": 5.5,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 5.5,
+          "valueText": "5.5V",
+          "unit": "V"
+        },
+        {
+          "paramKey": "memory_flash_kb",
+          "valueNum": 64,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 64,
+          "valueText": "64KB",
+          "unit": "KB"
+        },
+        {
+          "paramKey": "memory_ram_kb",
+          "valueNum": 20,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 20,
+          "valueText": "20KB",
+          "unit": "KB"
+        },
+        {
+          "paramKey": "interface_type",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "I2C,SPI,UART,USB",
+          "unit": ""
+        },
+        {
+          "paramKey": "operating_temp_min",
+          "valueNum": -40,
+          "valueNumMin": -40,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "-40°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "operating_temp_max",
+          "valueNum": 85,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": 85,
+          "valueText": "85°C",
+          "unit": "°C"
+        },
+        {
+          "paramKey": "package",
+          "valueNum": null,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "QFN-32",
+          "unit": ""
+        },
+        {
+          "paramKey": "pin_count",
+          "valueNum": 32,
+          "valueNumMin": null,
+          "valueNumTyp": null,
+          "valueNumMax": null,
+          "valueText": "32",
+          "unit": "pin"
+        }
+      ]
+    }
+  ]
+}

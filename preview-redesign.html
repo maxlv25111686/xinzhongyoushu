@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenClaw PDF Console Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./preview-redesign.css" />
+  </head>
+  <body>
+    <div class="backdrop glow-a"></div>
+    <div class="backdrop glow-b"></div>
+    <div class="backdrop grid"></div>
+
+    <main class="frame">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">OPENCLAW</span>
+          <span class="brand-caption">PDF Parameter Review</span>
+        </div>
+        <nav class="mode-switch">
+          <span class="mode-link active">审阅台</span>
+          <span class="mode-link">比对</span>
+          <span class="mode-link">会话</span>
+        </nav>
+        <div class="status-pack">
+          <span class="status-text">Gateway 已连接</span>
+          <span class="status-divider"></span>
+          <span class="status-text subtle">TMP112.pdf</span>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <aside class="chat-rail">
+          <div class="rail-head">
+            <p class="eyebrow">Conversation</p>
+            <h1>对话</h1>
+          </div>
+
+          <div class="chat-list">
+            <article class="bubble bubble-assistant">
+              已提取 8 条关键参数，可继续追问工作温度、供电电压和接口限制。
+            </article>
+            <article class="bubble bubble-user">这个器件的工作温度范围是多少？</article>
+            <article class="bubble bubble-assistant accent">
+              工作温度范围为 <strong>-40°C 到 125°C</strong>，高亮定位在第 11 页。
+            </article>
+          </div>
+
+          <div class="composer">
+            <div class="composer-field">继续追问参数、规格或让它总结风险点</div>
+            <div class="composer-actions">
+              <span class="ghost-btn">附加 PDF</span>
+              <span class="primary-btn">发送</span>
+            </div>
+          </div>
+        </aside>
+
+        <section class="inspector">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Extracted Parameters</p>
+              <h2>参数审阅</h2>
+            </div>
+            <div class="summary-pill">8 项已识别 / 2 项待确认</div>
+          </div>
+
+          <div class="summary-strip">
+            <div class="metric">
+              <span class="metric-label">工作温度</span>
+              <span class="metric-value">-40°C ~ 125°C</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">供电电压</span>
+              <span class="metric-value">1.4V ~ 3.6V</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">接口</span>
+              <span class="metric-value">SMBus</span>
+            </div>
+          </div>
+
+          <div class="parameter-list">
+            <article class="parameter-card selected">
+              <div class="parameter-top">
+                <span class="parameter-name">工作温度范围</span>
+                <span class="parameter-page">P.11</span>
+              </div>
+              <div class="parameter-main">
+                <span class="parameter-reading">-40°C ~ 125°C</span>
+                <span class="parameter-tag">已定位</span>
+              </div>
+              <p class="parameter-source">Operating temperature range: -40°C to 125°C</p>
+            </article>
+
+            <article class="parameter-card">
+              <div class="parameter-top">
+                <span class="parameter-name">供电电压</span>
+                <span class="parameter-page">P.12</span>
+              </div>
+              <div class="parameter-main">
+                <span class="parameter-reading">1.4V ~ 3.6V</span>
+                <span class="parameter-tag muted">待确认</span>
+              </div>
+              <p class="parameter-source">Supply voltage range: 1.4V to 3.6V</p>
+            </article>
+
+            <article class="parameter-card">
+              <div class="parameter-top">
+                <span class="parameter-name">静态电流</span>
+                <span class="parameter-page">P.14</span>
+              </div>
+              <div class="parameter-main">
+                <span class="parameter-reading">3.2µA</span>
+                <span class="parameter-tag">已识别</span>
+              </div>
+              <p class="parameter-source">Typical quiescent current in full temperature range.</p>
+            </article>
+
+            <article class="parameter-card compact">
+              <span class="parameter-mini">接口</span>
+              <span class="parameter-mini-value">SMBus / I²C Compatible</span>
+            </article>
+
+            <article class="parameter-card compact">
+              <span class="parameter-mini">封装</span>
+              <span class="parameter-mini-value">SOT563 / X2SON</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="viewer">
+          <div class="viewer-head">
+            <div>
+              <p class="eyebrow">Live Preview</p>
+              <h2>PDF 预览</h2>
+            </div>
+            <div class="viewer-tools">
+              <span class="viewer-page">11 / 49</span>
+              <span class="viewer-upload">上传</span>
+            </div>
+          </div>
+
+          <div class="viewer-stage">
+            <div class="page-shell">
+              <div class="page-topline"></div>
+              <div class="page-content">
+                <div class="text-block short"></div>
+                <div class="text-block long"></div>
+                <div class="highlight-block"></div>
+                <div class="text-block long"></div>
+                <div class="text-block medium"></div>
+                <div class="table-block">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <div class="text-block short lower"></div>
+              </div>
+            </div>
+
+            <div class="preview-callout">
+              <span class="callout-label">当前高亮</span>
+              <span class="callout-value">工作温度: -40°C 到 125°C</span>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

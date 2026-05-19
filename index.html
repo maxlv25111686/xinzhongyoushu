@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>芯中有数</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
+    rel="stylesheet" />
+  <script>
+    (function clearStaleBrowserAssets() {
+      if (typeof window === "undefined") {
+        return;
+      }
+
+      const resetFlag = "openclaw-browser-reset-v20260405-1";
+
+      async function clearRuntimeCaches() {
+        let changed = false;
+
+        if ("serviceWorker" in navigator) {
+          try {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(
+              registrations.map(async (registration) => {
+                const unregistered = await registration.unregister();
+                changed = changed || Boolean(unregistered);
+              })
+            );
+          } catch (error) {
+            console.warn("Failed to clear service workers", error);
+          }
+        }
+
+        if ("caches" in window) {
+          try {
+            const cacheKeys = await caches.keys();
+            await Promise.all(
+              cacheKeys.map(async (cacheKey) => {
+                const deleted = await caches.delete(cacheKey);
+                changed = changed || Boolean(deleted);
+              })
+            );
+          } catch (error) {
+            console.warn("Failed to clear cache storage", error);
+          }
+        }
+
+        if (changed && !sessionStorage.getItem(resetFlag)) {
+          sessionStorage.setItem(resetFlag, "1");
+          window.location.replace(`${window.location.pathname}?refresh=20260405-1`);
+        }
+      }
+
+      window.addEventListener("load", () => {
+        void clearRuntimeCaches();
+      });
+    })();
+  </script>
+  <link rel="stylesheet" href="./styles.css?v=20260410-1" />
+</head>
+
+<body>
+  <div class="backdrop glow-a"></div>
+  <div class="backdrop glow-b"></div>
+
+  <main class="app-frame">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">芯中有数</span>
+      </div>
+
+      <nav class="mode-switch" aria-label="工作区切换">
+        <button class="mode-link active" type="button" data-view="review">审阅台</button>
+        <!-- <button class="mode-link" type="button" data-view="compare">比对</button> -->
+        <button class="mode-link" type="button" data-view="recommend">推荐</button>
+      </nav>
+
+      <div class="topbar-actions">
+        <div class="history-dropdown" id="historyDropdown">
+          <button class="icon-button history-button" id="toggleHistoryButton" type="button" aria-expanded="false"
+            aria-controls="historyPanel" aria-haspopup="dialog" aria-label="历史会话">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 5a7 7 0 1 1-6.55 4.52" fill="none" stroke="currentColor" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="1.8" />
+              <path d="M5 4.5v4.6h4.6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.8" />
+              <path d="M12 8.4v4.1l2.8 1.8" fill="none" stroke="currentColor" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="1.8" />
+            </svg>
+          </button>
+
+          <div class="history-panel" id="historyPanel" hidden>
+            <div class="section-row history-panel-head">
+              <h3>历史会话</h3>
+              <span class="meta-pill" id="historyCount">0 条</span>
+            </div>
+            <div class="history-list" id="historyList">
+              <p class="meta-text">暂无历史对话</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-dropdown" id="settingsDropdown">
+          <!-- <button
+              class="text-button text-button-dropdown"
+              id="toggleSettingsButton"
+              type="button"
+              aria-expanded="false"
+              aria-controls="chatSettings"
+              aria-haspopup="dialog"
+            >
+              设置
+              <span class="text-button-caret" aria-hidden="true"></span>
+            </button> -->
+
+          <div class="chat-settings chat-settings-dropdown" id="chatSettings" hidden>
+            <label class="settings-field">
+              <span>推理引擎</span>
+              <select id="engineMode" disabled>
+                <option value="ollama">Ollama 本地</option>
+              </select>
+            </label>
+
+            <div class="socket-bar">
+              <input id="agentId" type="text" value="web" placeholder="Agent" />
+              <input id="sessionId" type="text" value="pdf-console" placeholder="会话 ID" />
+            </div>
+
+            <div class="socket-actions">
+              <button class="action-button action-button-primary" id="checkButton" type="button">检查</button>
+              <button class="action-button" id="newSessionButton" type="button">新会话</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-badge" id="chatStatusPill" data-state="idle">
+          <span class="status-dot"></span>
+          <span id="connectionLabel">未检查</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="workspace" id="workspace" data-view="review">
+      <aside class="pane pane-chat" id="chatPane">
+        <header class="pane-header pane-header-chat">
+          <div>
+            <h2>会话</h2>
+          </div>
+        </header>
+
+        <div class="progress-block progress-block-chat" id="chatProgress" hidden>
+          <div class="progress-meta">
+            <span class="progress-label" id="chatProgressLabel">处理中</span>
+          </div>
+          <div class="progress-track progress-track-indeterminate">
+            <span class="progress-fill" id="chatProgressFill"></span>
+          </div>
+        </div>
+
+        <section class="session-diagnostics" id="sessionDiagnostics">
+          <div class="section-row session-diagnostics-head">
+            <div class="session-diagnostics-title">
+              <h3>运行日志</h3>
+              <p class="meta-text" id="memoryStatusText">等待后台会话记忆</p>
+            </div>
+            <div class="session-diagnostics-actions">
+              <span class="meta-pill" id="stageLogCount">0 条</span>
+              <button class="text-button session-diagnostics-refresh" id="refreshStageLogsButton" type="button">
+                刷新
+              </button>
+            </div>
+          </div>
+          <div class="session-memory-meta" id="sessionMemoryMeta">
+            <span class="meta-text">上传 PDF 后会在这里显示阶段日志和记忆状态</span>
+          </div>
+          <div class="stage-log-list" id="stageLogList">
+            <p class="meta-text">等待后台阶段日志</p>
+          </div>
+        </section>
+
+        <div class="message-stream" id="messageStream" aria-live="polite">
+          <div class="chat-empty" id="chatEmpty" aria-hidden="true"></div>
+        </div>
+
+        <div class="chat-export-actions" id="chatExportActions">
+          <div class="chat-export-copy">
+            <strong>采购交付包</strong>
+          </div>
+          <button type="button" id="purchaseExportButton" class="action-button" disabled>
+            生成采购包
+          </button>
+        </div>
+
+        <form class="composer" id="composer">
+          <textarea id="messageInput" name="message" rows="4" placeholder="继续追问参数、规格或风险点"></textarea>
+          <div class="composer-row">
+            <span class="meta-text" id="composerTip">Enter 发送，Shift/Ctrl + Enter 换行</span>
+            <button type="submit" id="sendButton" class="action-button action-button-primary" disabled>
+              发送
+            </button>
+          </div>
+        </form>
+      </aside>
+
+      <button class="workspace-resizer" id="chatSummaryResizer" type="button" data-resizer="chat-summary"
+        aria-label="调整会话与解析结果宽度"></button>
+
+      <section class="pane pane-summary" id="summaryPane">
+        <header class="pane-header pane-header-summary">
+          <div>
+            <h2>解析结果</h2>
+          </div>
+          <div class="mini-metrics">
+            <span id="metaPages">0 页</span>
+          </div>
+        </header>
+
+        <div class="progress-block progress-block-pdf" id="pdfProgress" hidden>
+          <div class="progress-meta">
+            <span class="progress-label" id="pdfProgressLabel">解析参数</span>
+            <span class="progress-value" id="pdfProgressValue">0%</span>
+          </div>
+          <div class="progress-track">
+            <span class="progress-fill" id="pdfProgressFill"></span>
+          </div>
+        </div>
+
+        <section class="summary-block summary-block-fill" id="summaryFillBlock">
+          <div class="section-row section-row-list section-row-list-compact">
+            <span class="meta-pill" id="highlightCount">0 条</span>
+          </div>
+          <div class="highlights-list" id="highlightsList"></div>
+        </section>
+      </section>
+
+      <button class="workspace-resizer" id="summaryPreviewResizer" type="button" data-resizer="summary-preview"
+        aria-label="调整解析结果与 PDF 预览宽度"></button>
+
+      <section class="pane pane-preview" id="previewPane">
+        <input id="pdfInput" type="file" accept="application/pdf" hidden />
+
+        <div class="preview-shell">
+          <div class="preview-toolbar">
+            <div class="page-indicator preview-page-indicator">
+              <input id="pageNumberInput" type="number" min="1" value="1" disabled />
+              <span id="pageCountLabel">/ 0</span>
+            </div>
+            <label class="upload-button" for="pdfInput">上传</label>
+          </div>
+
+          <div class="preview-stage" id="previewStage">
+            <div class="preview-overlay-left">
+              <section class="summary-meta preview-doc-meta">
+                <p class="document-name" id="documentName">未上传 PDF</p>
+                <p class="meta-text" id="documentCaption">上传后自动提取</p>
+                <div class="preview-doc-stats">
+                  <span class="meta-pill preview-doc-size" id="metaSize">0 KB</span>
+                </div>
+              </section>
+              <div class="focus-strip" id="previewFocus">未选中重点</div>
+            </div>
+            <button class="preview-nav preview-nav-prev" id="prevPageButton" type="button" disabled aria-label="上一页">
+              <span aria-hidden="true">‹</span>
+            </button>
+            <button class="preview-nav preview-nav-next" id="nextPageButton" type="button" disabled aria-label="下一页">
+              <span aria-hidden="true">›</span>
+            </button>
+            <div class="preview-empty is-visible" id="previewEmpty">上传 PDF</div>
+            <div class="preview-canvas-shell" id="previewCanvasShell">
+              <canvas id="pdfCanvas"></canvas>
+              <div class="pdf-highlight-layer" id="pdfHighlightLayer" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pane pane-recommend">
+        <header class="pane-header">
+          <div>
+            <p class="eyebrow">芯中有数推荐</p>
+            <h2>国产推荐</h2>
+          </div>
+          <div class="mini-metrics">
+            <span id="recommendStatusLabel">等待 PDF</span>
+          </div>
+        </header>
+
+        <section class="recommend-layout">
+          <section class="recommend-panel recommend-panel-cards">
+            <div class="section-row">
+              <h3>候选器件</h3>
+              <span class="meta-pill" id="recommendCategoryPill">未分类</span>
+            </div>
+            <div class="recommend-list" id="recommendList">
+              <p class="meta-text">上传 PDF 后生成国产候选</p>
+            </div>
+          </section>
+
+          <section class="recommend-panel recommend-panel-chart">
+            <div class="section-row recommend-compare-row">
+              <h3 id="recommendDetailTitle">雷达对比</h3>
+              <div class="recommend-compare-pills">
+                <span class="recommend-compare-pill recommend-compare-pill-source" id="recommendSourceLabel">
+                  参考器件 · 当前 PDF
+                </span>
+                <span class="recommend-compare-pill recommend-compare-pill-target" id="recommendSelectedLabel">
+                  候选器件 · 待选择
+                </span>
+              </div>
+            </div>
+
+            <div class="recommend-detail-tabs" id="recommendDetailTabs" aria-label="推荐详情切换">
+              <button type="button" class="recommend-detail-tab active" id="recommendViewRadar"
+                data-detail-view="radar">
+                雷达图
+              </button>
+              <button type="button" class="recommend-detail-tab" id="recommendViewData" data-detail-view="data">
+                场景
+              </button>
+              <button type="button" class="recommend-detail-tab" id="recommendViewVerify" data-detail-view="verify">
+                辨别
+              </button>
+            </div>
+
+            <div class="radar-shell" id="radarShell">
+              <div class="radar-stage" id="radarStage">
+                <canvas id="recommendRadar" width="640" height="360"></canvas>
+                <div class="radar-empty" id="radarEmpty">等待推荐结果</div>
+              </div>
+              <div class="radar-meta">
+                <div class="radar-meta-top">
+                  <div class="radar-legend" id="radarLegend"></div>
+                  <div class="radar-summary" id="radarSummary"></div>
+                </div>
+                <div class="radar-score-grid" id="radarScoreGrid"></div>
+              </div>
+            </div>
+
+            <div class="recommend-verify-view" id="recommendVerifyView" hidden>
+              <section class="engineering-review" id="engineeringReview">
+                <div class="engineering-review-head">
+                  <div>
+                    <span class="engineering-kicker">场景化核验</span>
+                    <h3>工程可用性验证</h3>
+                  </div>
+                  <button class="engineering-decision-button" id="engineeringDecisionButton" type="button" disabled>
+                    等待候选
+                  </button>
+                </div>
+
+                <div class="scenario-grid" id="scenarioForm">
+                  <label class="scenario-field">
+                    <span>输入电压</span>
+                    <input id="scenarioInputVoltage" type="number" step="0.1" min="0" value="5" />
+                    <em>V</em>
+                  </label>
+                  <label class="scenario-field">
+                    <span>输出电压</span>
+                    <input id="scenarioOutputVoltage" type="number" step="0.1" min="0" value="3.3" />
+                    <em>V</em>
+                  </label>
+                  <label class="scenario-field">
+                    <span>负载电流</span>
+                    <input id="scenarioLoadCurrent" type="number" step="10" min="0" value="200" />
+                    <em>mA</em>
+                  </label>
+                  <label class="scenario-field">
+                    <span>环境温度</span>
+                    <input id="scenarioTemperature" type="number" step="1" value="70" />
+                    <em>℃</em>
+                  </label>
+                  <label class="scenario-field scenario-field-wide">
+                    <span>封装要求</span>
+                    <input id="scenarioPackage" type="text" value="SOT-23-5" />
+                  </label>
+                </div>
+
+                <div class="scenario-check-grid scenario-check-grid-compact" id="scenarioCheckGrid"></div>
+
+                <article class="engineering-conclusion" id="engineeringConclusion" hidden>
+                  <span class="engineering-conclusion-status">等待推荐结果</span>
+                  <p>生成候选后，系统会结合工况、封装和引脚信息给出工程复核结论。</p>
+                </article>
+
+                <div class="pinout-matrix" id="pinoutMatrix">
+                  <p class="meta-text">选择候选器件后展示引脚兼容矩阵。</p>
+                </div>
+              </section>
+            </div>
+
+            <div class="recommend-data-view" id="recommendDataView" hidden>
+              <div class="recommend-data-body">
+                <section class="scenario-suggestions" id="scenarioSuggestions">
+                  <div class="scenario-suggestions-head">
+                    <div>
+                      <span class="scenario-suggestions-kicker">识别后生成</span>
+                      <strong>使用场景</strong>
+                    </div>
+                    <span>点击场景后自动带入辨别页核验工况</span>
+                  </div>
+                  <div class="scenario-suggestion-list" id="scenarioSuggestionList">
+                    <p class="meta-text">等待 PDF 识别后生成场景建议。</p>
+                  </div>
+                </section>
+                <section class="scenario-followup" id="scenarioFollowup">
+                  <div class="scenario-followup-head">
+                    <div>
+                      <span class="scenario-suggestions-kicker">下一步比较</span>
+                      <strong>场景工况核验</strong>
+                    </div>
+                    <span>根据当前场景与候选器件实时更新</span>
+                  </div>
+                  <div class="scenario-followup-grid" id="scenarioFollowupGrid">
+                    <p class="meta-text">选择使用场景后开始比较。</p>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </section>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <template id="messageTemplate">
+    <article class="message">
+      <div class="message-meta">
+        <span class="message-role"></span>
+        <time class="message-time"></time>
+      </div>
+      <p class="message-body"></p>
+    </article>
+  </template>
+
+  <script type="module" src="./app.js?v=20260412-2"></script>
+</body>
+
+</html>

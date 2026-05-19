@@ -1,0 +1,4 @@
+version: 1
+display_name: 芯片PDF解析规范
+short_description: 统一数据手册关键参数、引脚与溯源提取规则
+default_prompt: 提取PDF数据手册中的关键参数并返回结构化结果

@@ -1,0 +1,16 @@
+{
+  "name": "openclaw-pdf-console",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check app.js",
+    "check:recommendation-kb": "python scripts/validate_recommendation_kb.py",
+    "build:recommendation-db": "python scripts/build_recommendation_db.py data/recommendation/parts_knowledge.db"
+  },
+  "dependencies": {
+    "@cloudbase/node-sdk": "^3.18.1",
+    "pdfjs-dist": "^5.6.205"
+  }
+}
