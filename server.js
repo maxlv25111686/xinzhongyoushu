@@ -34,7 +34,9 @@ const OPENCLAW_PACKAGE_ROOT = path.join(
 );
 const OPENCLAW_LOCAL_PACKAGE_ROOT = path.join(ROOT_DIR, "node_modules", "openclaw");
 const TRACE_LOG_LABEL = "[PDF重要参数溯源]";
-const OLLAMA_ONLY_MODE = process.env.OLLAMA_ONLY_MODE !== "0";
+const OPENCLAW_GATEWAY_ENABLED =
+  process.env.ENABLE_OPENCLAW_GATEWAY === "1" && process.env.OLLAMA_ONLY_MODE === "0";
+const OLLAMA_ONLY_MODE = !OPENCLAW_GATEWAY_ENABLED;
 const PDF_LOCALIZATION_AI_ENABLED = process.env.PDF_LOCALIZATION_AI === "1";
 const FAST_OLLAMA_ENABLED = process.env.FAST_OLLAMA_ENABLED !== "0";
 const FAST_OLLAMA_BASE_URL = process.env.OLLAMA_BASE_URL || "http://127.0.0.1:11434";
@@ -3804,7 +3806,9 @@ async function analyzeStructuredPdfWithOpenClaw(structured, agentId = "", engine
         }
       }
     } catch (error) {
-      console.warn(`Fast Ollama PDF analysis failed: ${error instanceof Error ? error.message : String(error)}`);
+      console.warn(
+        `${CLOUD_AI_ENABLED ? "CloudBase AI" : "Fast Ollama"} PDF analysis failed: ${error instanceof Error ? error.message : String(error)}`
+      );
     }
   }
 
@@ -4005,7 +4009,7 @@ async function handleStatus(_request, response) {
   } catch (error) {
     sendJson(response, 500, {
       ok: false,
-      error: error instanceof Error ? error.message : "Failed to check OpenClaw.",
+      error: error instanceof Error ? error.message : "Failed to check model service.",
     });
   }
 }
@@ -4079,14 +4083,16 @@ async function handleChat(request, response) {
           return;
         }
       } catch (error) {
-        console.warn(`Fast Ollama chat failed: ${error instanceof Error ? error.message : String(error)}`);
+        console.warn(
+          `${CLOUD_AI_ENABLED ? "CloudBase AI" : "Fast Ollama"} chat failed: ${error instanceof Error ? error.message : String(error)}`
+        );
       }
     }
 
     if (OLLAMA_ONLY_MODE) {
       sendJson(response, 502, {
         ok: false,
-        transport: "ollama-local",
+        transport: CLOUD_AI_ENABLED ? "cloudbase-ai" : "ollama-local",
         engineMode,
         sessionId: sessionRef.sessionId,
         sessionKey: null,
