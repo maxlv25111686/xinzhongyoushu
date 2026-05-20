@@ -1,4 +1,5 @@
-﻿import fsp from "node:fs/promises";
+﻿import fssync from "node:fs";
+import fsp from "node:fs/promises";
 import http from "node:http";
 import os from "node:os";
 import path from "node:path";
@@ -9,6 +10,9 @@ import { deflateRawSync } from "node:zlib";
 const HOST = process.env.HOST || "0.0.0.0";
 const PORT = Number.parseInt(process.env.PORT || "4173", 10);
 const ROOT_DIR = process.cwd();
+const LOCAL_PYTHON_PATH = process.platform === "win32"
+  ? path.join(ROOT_DIR, ".venv", "Scripts", "python.exe")
+  : path.join(ROOT_DIR, ".venv", "bin", "python3");
 const PDF_PARSE_SCRIPT = path.join(ROOT_DIR, "scripts", "parse_pdf.py");
 const SESSION_MEMORY_SCRIPT = path.join(ROOT_DIR, "scripts", "session_memory_store.py");
 const SESSION_MEMORY_DB_PATH = path.join(ROOT_DIR, "data", "review_memory.db");
@@ -51,6 +55,11 @@ const CLOUD_AI_MODEL = process.env.CB_AI_MODEL || "deepseek-v4-flash";
 const CLOUD_AI_PROVIDER = process.env.CB_AI_PROVIDER
   || (CLOUD_AI_MODEL.startsWith("hunyuan-") ? "hunyuan-exp" : "cloudbase");
 const CLOUD_AI_TIMEOUT_MS = Number.parseInt(process.env.CB_AI_TIMEOUT_MS || "60000", 10);
+const CLOUD_AI_HAS_EXPLICIT_CREDENTIALS = Boolean(
+  (process.env.TENCENTCLOUD_SECRETID || process.env.TENCENTCLOUD_SECRET_ID)
+  && (process.env.TENCENTCLOUD_SECRETKEY || process.env.TENCENTCLOUD_SECRET_KEY)
+);
+const CLOUD_AI_ALLOW_LOCAL_WITHOUT_CREDENTIALS = process.env.CLOUD_AI_ALLOW_LOCAL_WITHOUT_CREDENTIALS === "1";
 const FAST_OLLAMA_CHAT_TOKENS = Number.parseInt(process.env.FAST_OLLAMA_CHAT_TOKENS || "384", 10);
 const FAST_OLLAMA_PDF_TOKENS = Number.parseInt(process.env.FAST_OLLAMA_PDF_TOKENS || "1800", 10);
 const FAST_OLLAMA_CHAT_TIMEOUT_MS = Number.parseInt(process.env.FAST_OLLAMA_CHAT_TIMEOUT_MS || "30000", 10);
@@ -266,6 +275,17 @@ function extractAssistantText(parsed, rawText) {
 }
 
 function resolvePythonInvocation(args) {
+  const configuredPython = process.env.PYTHON_BIN || process.env.PYTHON_EXECUTABLE || "";
+  const localPython = configuredPython || LOCAL_PYTHON_PATH;
+
+  if (localPython && fssync.existsSync(localPython)) {
+    return {
+      file: localPython,
+      args,
+      display: [localPython, ...args],
+    };
+  }
+
   if (process.platform === "win32") {
     return {
       file: "py",
@@ -824,6 +844,14 @@ function withOpenClawNoThinkDirective(message) {
   return `/no_think\n\n${text}`;
 }
 
+function shouldSkipCloudBaseAiForLocalCredentials() {
+  const isLocalBind = HOST === "127.0.0.1" || HOST === "localhost";
+  return CLOUD_AI_ENABLED
+    && isLocalBind
+    && !CLOUD_AI_HAS_EXPLICIT_CREDENTIALS
+    && !CLOUD_AI_ALLOW_LOCAL_WITHOUT_CREDENTIALS;
+}
+
 async function loadCloudBaseModel() {
   if (!cloudBaseModelPromise) {
     cloudBaseModelPromise = (async () => {
@@ -886,6 +914,10 @@ function extractCloudBaseAssistantText(payload) {
 }
 
 async function generateWithCloudBaseAI(prompt, options = {}) {
+  if (shouldSkipCloudBaseAiForLocalCredentials()) {
+    throw new Error("CloudBase AI local credentials are not configured; skipped local model call.");
+  }
+
   const timeoutMs = Math.max(
     1000,
     Number(options.timeoutMs) || CLOUD_AI_TIMEOUT_MS || FAST_OLLAMA_CHAT_TIMEOUT_MS
@@ -910,11 +942,11 @@ async function generateWithCloudBaseAI(prompt, options = {}) {
     );
   });
 
+  const requestPromise = model.generateText(requestPayload);
+  requestPromise.catch(() => {});
+
   try {
-    const result = await Promise.race([
-      model.generateText(requestPayload),
-      timeoutPromise,
-    ]);
+    const result = await Promise.race([requestPromise, timeoutPromise]);
     return stripThinkingText(extractCloudBaseAssistantText(result));
   } finally {
     if (timeout) {

@@ -2642,7 +2642,21 @@ async function loadPdf(file) {
   updateSummaryMeta();
   updatePageControls();
   await renderPdfPage();
-  await analyzePdf();
+  try {
+    await analyzePdf();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "PDF 参数解析失败";
+    console.error("PDF analysis failed:", error);
+    if (refs.summaryText) {
+      refs.summaryText.textContent = message;
+    }
+    if (refs.highlightsList) {
+      refs.highlightsList.innerHTML =
+        `<p class="meta-text">PDF 已完成预览，但参数解析失败：${escapeHtml(message)}</p>`;
+    }
+    setPdfProgress("PDF 已预览，参数解析失败", 100, true);
+    window.setTimeout(() => setPdfProgress("", null, false), 1200);
+  }
   if (state.activeView === "recommend") {
     ensureRecommendations().catch(() => {});
   }
